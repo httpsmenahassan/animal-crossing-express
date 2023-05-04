@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>21 Savage Fan Site</title>
+  <title>Animal Crossing Fan Site</title>
   <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
   <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
   <link rel="stylesheet" href="style.css">
@@ -37,47 +37,46 @@
 
         </div>
       </div>
+
+      <% if (selectedVillager) { %>
+
       <div class="col-sm-6">
         <h3>Animal Crossing Villager Log</h3>
         <ul class="villagers">
-          <% for(var i=0; i<villagers.length; i++) {%>
             <li class="villagerInfo">
               <span>
-                <%= villagers[i].name %>
+                <%= selectedVillager.name %>
               </span>
-              <span>
-                <%= villagers[i].img %>
-              </span>
-              <span>
-                <%= villagers[i].gift %>
-              </span>
-              <span><i class="fa fa-thumbs-up" aria-hidden="true"></i></span>
-              <span><i class="fa fa-thumbs-down" aria-hidden="true"></i></span>
-              <span><i class="fa fa-trash" aria-hidden="true"></i></span>
+              <img src="img/<%= selectedVillager.img %>">
+    
+              <%# if likes array inside selected villager include our id(the id of the user who is signed in) then fa-solid is put into the DOM
+              otherwise it puts in fa-regular aka non filled in heart %>
+              <span><i id="<%= selectedVillager._id %>" class="<%= selectedVillager.likes.includes(user._id.toString()) ? 'fa-solid' : 'fa-regular' %> fa-heart"></i></span>
+
             </li>
-            <% } %>
         </ul>
-
-        <h2>Add a message</h2>
-        <% if (user.local.email) { %>
-          <form action="/messages" method="POST">
-            <label for="villagers-select">Choose a character:</label>
-
-            <select name="villagers" id="villagers-select">
-              <option value="">--Please choose an option--</option>
-              <option value="Cookie">Cookie</option>
-              <option value="Iggly">Iggly</option>
-              <option value="Lorenzo">Lopez</option>
-              <option value="Cephalobot">Cephalobot</option>
-              <option value="Charlise">Charlise</option>
-            </select>
-            <button type="submit">Submit</button>
-          </form>
       </div>
+
       <% } %>
+
+        <div>
+          <h2>Add a message</h2>
+            <form action="/profile" method="GET">
+              <label for="villagers-select">Choose a character:</label>
+              <select name="villagerId" id="villager-select">
+                <option value="">--Please choose a villager--</option>
+                <% for (let i = 0; i < villagers.length; i++) { %>
+                <option value="<%= villagers[i]._id %>"><%= villagers[i].name %></option>
+              <% } %>
+              </select>
+              <button id="getVillager" type="submit">Submit</button>
+            </form>
+          
+        </div>
 
     </div>
 
+    <script src="https://kit.fontawesome.com/e9f7511864.js" crossorigin="anonymous"></script>
     <script src="main.js"></script>
 
 </body>

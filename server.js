@@ -2,14 +2,14 @@
 
 // set up ======================================================================
 // get all the tools we need
-var express = require('express');
-var app = express();
-var port = process.env.PORT || 8080;
-var MongoClient = require('mongodb').MongoClient
+const express = require('express');
+const app = express();
+const port = process.env.PORT || 8080;
+const { MongoClient, ObjectId } = require('mongodb')
 // mongoose is just another way of talking to our mongo database (supports schemas), maintains flexibility of mongo but makes sure the data we're sending to t
-var mongoose = require('mongoose');
-var passport = require('passport');
-var flash = require('connect-flash');
+const mongoose = require('mongoose');
+const passport = require('passport');
+const flash = require('connect-flash');
 // const { villagers } = require('animal-crossing');
 
 // const cephalobot  = villagers.find(villager => villager.name === 'Cephalobot');
